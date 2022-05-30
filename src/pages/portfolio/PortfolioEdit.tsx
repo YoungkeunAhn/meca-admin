@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { format } from 'date-fns'
-import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useCallback, useRef, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import PageTitle from '../../common/PageTitle'
 import InputTextBox from '../../components/InputTextBox'
 import DashboadLayout from '../../layout/DashboadLayout'
@@ -19,7 +19,9 @@ const initInputs: InputsType = {
   startDate: format(new Date(), 'yyy-MM-dd'),
 }
 
-function PortfolioDetail() {
+function PortfolioEdit() {
+  const params = useParams()
+
   const [pageTitle, setPageTitle] = useState('포트폴리오')
   const [inputs, setInputs] = useState<InputsType>(initInputs)
   const [imageList, setImageList] = useState<ImageList[]>([])
@@ -31,53 +33,32 @@ function PortfolioDetail() {
     setInputs({ ...inputs, [event.target.name]: event.target.value })
   }
 
-  const onChangeFileInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const fileURLs: string[] = []
-      const fileTemp: File[] = []
-      const { files } = event.target
+  const onChangeFileInput = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files) {
+        const { files } = event.target
 
-      let loopLength = files.length
+        let loopLength = files.length
 
-      if (imageList.length + loopLength > 6) {
-        alert('최대 6개까지 입니다.')
-        loopLength = 6 - imageList.length
+        if (imageList.length + loopLength > 6) {
+          alert('최대 6개까지 입니다.')
+          loopLength = 6 - imageList.length
+        }
+
+        for (let i = 0; i < loopLength; i++) {
+          if (!files[i].type.startsWith('image/')) {
+            alert('이미지만 올려주세요')
+            return false
+          }
+
+          setImageList((prev) =>
+            prev.concat({ url: URL.createObjectURL(files[i]), file: files[i] })
+          )
+        }
       }
-
-      // for (let i = 0; i < loopLength; i++) {
-      //   file = files[i]
-
-      //   if (!file.type.startsWith('image/')) {
-      //     alert('이미지만 올려주세요')
-      //     return false
-      //   }
-      //   let reader = new FileReader()
-      //   reader.onload = () => {
-      //     fileURLs[i] = reader.result
-      //     setImageList(imageList.concat(fileURLs))
-      //   }
-
-      //   fileTemp.push({ url: fileURLs[i], fileName: file.name })
-      //   reader.readAsDataURL(file)
-      // }
-
-      for (let i = 0; i < loopLength; i++) {
-        fileURLs.push(URL.createObjectURL(files[i]))
-        fileTemp.push(files[i])
-      }
-
-      console.log('fileTemp : ', fileTemp)
-      console.log('fielURLs ; ', fileURLs)
-
-      fileTemp.map((file, idx) =>
-        setImageList((prev) => prev.concat({ url: fileURLs[idx], file: file }))
-      )
-
-      // for (let i = 0; i < files.length; i++) {
-      //   console.log('xxx')
-      // }
-    }
-  }
+    },
+    [imageList.length]
+  )
 
   const onClickImageAddBtn = () => {
     if (inputRef.current) {
@@ -89,13 +70,26 @@ function PortfolioDetail() {
     setMainNumber(idx)
   }
 
+  const loadData = async () => {
+    try {
+      const { data } = await axios.get('', { params: { id: params } })
+
+      data.imageList.forEach((url: any) =>
+        setImageList(imageList.concat([{ url: url }]))
+      )
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   let formData: FormData = new FormData()
 
   const onSubmit = async () => {
-    console.log(imageList)
-
     try {
-      imageList.map((image) => formData.append('image[]', image.file))
+      imageList.forEach(
+        (image) => image.file && formData.append('image[]', image.file)
+      )
+
       formData.append('data', JSON.stringify(inputs))
       formData.append('mainIdx', mainNumber.toString())
 
@@ -104,19 +98,20 @@ function PortfolioDetail() {
         url: 'http://adm.imama.kr/imama/api/',
         data: formData,
       })
-
-      alert('성공')
     } catch (e) {
       console.error(e)
-      alert('실패')
     }
   }
 
   const removeImage = (url: string, idx: number) => {
-    setImageList((prev) => prev.filter((it) => it.url !== url))
+    if (url.startsWith('blob')) {
+      window.URL.revokeObjectURL(url)
+    }
+
     if (mainNumber === idx) {
       setMainNumber(0)
     }
+    setImageList((prev) => prev.filter((it) => it.url !== url))
   }
 
   return (
@@ -190,4 +185,4 @@ function PortfolioDetail() {
   )
 }
 
-export default PortfolioDetail
+export default PortfolioEdit

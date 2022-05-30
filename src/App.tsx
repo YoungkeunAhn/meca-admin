@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import ContactList from './pages/contact/ContactList'
 import NoticeList from './pages/notice/NoticeList'
 import PortfolioList from './pages/portfolio/PortfolioList'
-import PortfolioDetail from './pages/portfolio/PortfolioDetail'
+import PortfolioEdit from './pages/portfolio/PortfolioEdit'
 
 function App() {
   return (
@@ -16,8 +16,8 @@ function App() {
       <Route path='/contact' element={<ContactList />} />
       <Route path='/notice' element={<NoticeList />} />
       <Route path='/portfolio' element={<PortfolioList />} />
-      <Route path='/portfolio/detail' element={<PortfolioDetail />} />
-      <Route path='/portfolio/add' element={<PortfolioDetail />} />
+      <Route path='/portfolio/edit/:id' element={<PortfolioEdit />} />
+      <Route path='/portfolio/add' element={<PortfolioEdit />} />
       <Route path='*' element={<Error404 />} />
     </Routes>
   )

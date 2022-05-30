@@ -5,15 +5,15 @@ import DashboadLayout from '../../layout/DashboadLayout'
 import PortfolioCard from './PortfolioCard'
 
 const fakeData = [
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
-  { title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 1, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 2, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 3, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 4, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 5, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 6, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 7, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 8, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
+  { id: 9, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
 ]
 
 function PortfolioList() {
@@ -34,7 +34,7 @@ function PortfolioList() {
       </div>
       <div className='grid grid-cols-6 gap-4 gap-y-8'>
         {fakeData.map((data, idx) => (
-          <Link to='/portfolio/detail' key={idx}>
+          <Link to={`/portfolio/edit/${data.id}`} key={idx}>
             <PortfolioCard {...data} />
           </Link>
         ))}

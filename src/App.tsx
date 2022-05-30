@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Main from './pages/Main'
-import Error404 from './pages/Error404'
+import Error404 from './pages/error/Error404'
 import Login from './pages/Login'
 import ContactList from './pages/contact/ContactList'
 import NoticeList from './pages/notice/NoticeList'

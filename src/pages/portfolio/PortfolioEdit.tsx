@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import PageTitle from '../../common/PageTitle'
 import InputTextBox from '../../components/InputTextBox'
 import DashboadLayout from '../../layout/DashboadLayout'
-import ImagePreviewBox from './ImagePreviewBox'
+import ImagePreviewBox from '../../components/portfolio/ImagePreviewBox'
 
 type InputsType = {
   title: string

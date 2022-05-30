@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ModalContent from '../../common/modal/ModalContent'
+import ModalTitle from '../../common/modal/ModalTitle'
+import ModalWrapper from '../../common/modal/ModalWrapper'
 import PageTitle from '../../common/PageTitle'
+import PortfolioCard from '../../components/portfolio/PortfolioCard'
+import PortfolioInquiryModal from '../../components/portfolio/PortfolioInquiryModal'
 import DashboadLayout from '../../layout/DashboadLayout'
-import PortfolioCard from './PortfolioCard'
 
 const fakeData = [
   { id: 1, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },
@@ -17,6 +21,16 @@ const fakeData = [
 ]
 
 function PortfolioList() {
+  const [open, setOpen] = useState<boolean>(false)
+
+  const onCloseModal = () => {
+    setOpen(false)
+  }
+
+  const openModal = () => {
+    setOpen(true)
+  }
+
   return (
     <DashboadLayout>
       <div className='flex justify-between items-center'>
@@ -27,8 +41,11 @@ function PortfolioList() {
               포트폴리오 추가
             </button>
           </Link>
-          <button className='py-1 px-2 rounded-md text-white font-bold text-sm bg-purple-500'>
-            행사문의 변경
+          <button
+            className='py-1 px-2 rounded-md text-white font-bold text-sm bg-purple-500'
+            onClick={openModal}
+          >
+            행사문의글 변경
           </button>
         </div>
       </div>
@@ -39,6 +56,8 @@ function PortfolioList() {
           </Link>
         ))}
       </div>
+
+      {open && <PortfolioInquiryModal onClose={onCloseModal} />}
     </DashboadLayout>
   )
 }

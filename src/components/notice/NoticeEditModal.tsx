@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import ModalContent from '../../common/modal/ModalContent'
+import ModalTitle from '../../common/modal/ModalTitle'
+import ModalWrapper from '../../common/modal/ModalWrapper'
 import RequillEditor from '../../common/requill-editor/RequillEditor'
 
 type DataType = {
@@ -42,22 +45,13 @@ function NoticeEditModal(props: Props) {
   })
 
   return (
-    <div className='fixed top-0 left-0 w-full h-screen bg-[rgba(0,0,0,0.4)] flex justify-center items-center'>
-      <div className='flex flex-col bg-white w-1/2 h-[90vh] rounded-md'>
-        <div className='flex justify-between items-center w-full p-4 border-b'>
-          <h1>공지사항</h1>
-          <div className='flex items-center space-x-5'>
-            <button className='py-1 px-2 rounded-md text-white font-bold text-sm bg-blue-500'>
-              저장
-            </button>
-            <button
-              className='py-1 px-2 rounded-md text-white font-bold text-sm bg-red-500'
-              onClick={onClickCloseBtn}
-            >
-              닫기
-            </button>
-          </div>
-        </div>
+    <ModalWrapper>
+      <ModalContent className='h-[90vh]'>
+        <ModalTitle title='공지사항' onClose={onClickCloseBtn}>
+          <button className='py-1 px-2 rounded-md text-white font-bold text-sm bg-blue-500'>
+            저장
+          </button>
+        </ModalTitle>
 
         <div className='p-4 pt-10 space-y-5'>
           <table className='border w-full h-full'>
@@ -98,8 +92,8 @@ function NoticeEditModal(props: Props) {
             </tr>
           </table>
         </div>
-      </div>
-    </div>
+      </ModalContent>
+    </ModalWrapper>
   )
 }
 

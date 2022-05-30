@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import React, { useState } from 'react'
 import PageTitle from '../../common/PageTitle'
 import DashboadLayout from '../../layout/DashboadLayout'
-import NoticeEditModal from './NoticeEditModal'
+import NoticeEditModal from '../../components/notice/NoticeEditModal'
 
 const thClassName = 'text-sm font-semibold text-white py-2'
 

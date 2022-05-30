@@ -1,6 +1,6 @@
 import React from 'react'
 import 'tippy.js/dist/tippy.css'
-import { ContactType } from './ContactList'
+import { ContactType } from '../../pages/contact/ContactList'
 
 const tdClassName =
   'text-center text-base bg-white border-b border-r border-[#E8E8E8] max-w-[400px]'

@@ -1,7 +1,7 @@
 import React from 'react'
 import PageTitle from '../../common/PageTitle'
 import DashboadLayout from '../../layout/DashboadLayout'
-import ContractTableRow from './ContractTableRow'
+import ContractTableRow from '../../components/contact/ContractTableRow'
 
 const thClassName = 'text-sm font-semibold text-white py-2'
 

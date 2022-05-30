@@ -2,10 +2,10 @@ import React from 'react'
 import Minus from '../../icons/Minus'
 
 type Props = {
-  imageList: string[]
+  imageList: ImageList[]
   main?: number
   onDoubleClick: (idx: number) => void
-  removeImage: (image: string) => void
+  removeImage: (image: string, idx: number) => void
 }
 
 function ImagePreviewBox(props: Props) {
@@ -13,7 +13,7 @@ function ImagePreviewBox(props: Props) {
 
   return (
     <ul className='grid grid-cols-3 gap-x-8 gap-y-8 w-full'>
-      {imageList.map((url, idx) => (
+      {imageList.map((image, idx) => (
         <div
           className='flex flex-col relative'
           key={idx}
@@ -29,7 +29,7 @@ function ImagePreviewBox(props: Props) {
           )}
           <button
             className='absolute -top-[10px] -right-[25px] group'
-            onClick={() => removeImage(url)}
+            onClick={() => removeImage(image.url, idx)}
           >
             <Minus className='w-8 h-8 stroke-slate-400 group-hover:stroke-red-600' />
           </button>
@@ -40,7 +40,7 @@ function ImagePreviewBox(props: Props) {
             }`}
           >
             <img
-              src={url}
+              src={image.url}
               alt='preview'
               width='100%'
               className='max-h-[300px] object-contain'

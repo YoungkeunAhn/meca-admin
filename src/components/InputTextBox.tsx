@@ -13,7 +13,7 @@ function InputTextBox(props: Props) {
 
   return (
     <div className='flex items-center'>
-      <label htmlFor={name} className='w-[200px]'>
+      <label htmlFor={name} className='w-[200px] font-bold'>
         {label}
       </label>
       <input

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { format } from 'date-fns'
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -21,7 +22,7 @@ const initInputs: InputsType = {
 function PortfolioDetail() {
   const [pageTitle, setPageTitle] = useState('포트폴리오')
   const [inputs, setInputs] = useState<InputsType>(initInputs)
-  const [imageList, setImageList] = useState<string[]>([])
+  const [imageList, setImageList] = useState<ImageList[]>([])
   const [mainNumber, setMainNumber] = useState<number>(0)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -32,8 +33,8 @@ function PortfolioDetail() {
 
   const onChangeFileInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      let file
-      let fileURLs: any[] = []
+      const fileURLs: string[] = []
+      const fileTemp: File[] = []
       const { files } = event.target
 
       let loopLength = files.length
@@ -43,26 +44,38 @@ function PortfolioDetail() {
         loopLength = 6 - imageList.length
       }
 
-      if (loopLength > 6) {
-        alert('최대 6개까지 입니다.')
-        loopLength = 6
-      }
+      // for (let i = 0; i < loopLength; i++) {
+      //   file = files[i]
+
+      //   if (!file.type.startsWith('image/')) {
+      //     alert('이미지만 올려주세요')
+      //     return false
+      //   }
+      //   let reader = new FileReader()
+      //   reader.onload = () => {
+      //     fileURLs[i] = reader.result
+      //     setImageList(imageList.concat(fileURLs))
+      //   }
+
+      //   fileTemp.push({ url: fileURLs[i], fileName: file.name })
+      //   reader.readAsDataURL(file)
+      // }
 
       for (let i = 0; i < loopLength; i++) {
-        file = files[i]
-        if (!file.type.startsWith('image/')) {
-          alert('이미지만 올려주세요')
-          return false
-        }
-
-        let reader = new FileReader()
-        reader.onload = () => {
-          fileURLs[i] = reader.result
-          setImageList(imageList.concat(fileURLs))
-        }
-
-        reader.readAsDataURL(file)
+        fileURLs.push(URL.createObjectURL(files[i]))
+        fileTemp.push(files[i])
       }
+
+      console.log('fileTemp : ', fileTemp)
+      console.log('fielURLs ; ', fileURLs)
+
+      fileTemp.map((file, idx) =>
+        setImageList((prev) => prev.concat({ url: fileURLs[idx], file: file }))
+      )
+
+      // for (let i = 0; i < files.length; i++) {
+      //   console.log('xxx')
+      // }
     }
   }
 
@@ -76,13 +89,34 @@ function PortfolioDetail() {
     setMainNumber(idx)
   }
 
-  const onSubmit = () => {
-    console.log('imageList : ' + imageList)
-    console.log('inputs : ' + inputs)
+  let formData: FormData = new FormData()
+
+  const onSubmit = async () => {
+    console.log(imageList)
+
+    try {
+      imageList.map((image) => formData.append('image[]', image.file))
+      formData.append('data', JSON.stringify(inputs))
+      formData.append('mainIdx', mainNumber.toString())
+
+      await axios({
+        method: 'POST',
+        url: 'http://adm.imama.kr/imama/api/',
+        data: formData,
+      })
+
+      alert('성공')
+    } catch (e) {
+      console.error(e)
+      alert('실패')
+    }
   }
 
-  const removeImage = (image: string) => {
-    setImageList((prev) => prev.filter((it) => it !== image))
+  const removeImage = (url: string, idx: number) => {
+    setImageList((prev) => prev.filter((it) => it.url !== url))
+    if (mainNumber === idx) {
+      setMainNumber(0)
+    }
   }
 
   return (

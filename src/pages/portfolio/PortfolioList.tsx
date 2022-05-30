@@ -34,8 +34,8 @@ function PortfolioList() {
       </div>
       <div className='grid grid-cols-6 gap-4 gap-y-8'>
         {fakeData.map((data, idx) => (
-          <Link to='/portfolio/detail'>
-            <PortfolioCard key={idx} {...data} />
+          <Link to='/portfolio/detail' key={idx}>
+            <PortfolioCard {...data} />
           </Link>
         ))}
       </div>

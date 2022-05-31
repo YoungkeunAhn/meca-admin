@@ -5,17 +5,23 @@ import { ContactType } from '../../pages/contact/ContactList'
 const tdClassName =
   'text-center text-base bg-white border-b border-r border-[#E8E8E8] max-w-[400px]'
 
-function ContractTableRow(props: ContactType) {
+type Props = {
+  data: ContactType
+  openImageViewer: (imageList: string[]) => void
+}
+
+function ContractTableRow(props: Props) {
+  const { data, openImageViewer } = props
   const {
     company,
-    budget,
-    companyCallNum,
-    email,
     manager,
     phoneNum,
+    budget,
+    companyCallNum,
     content,
+    email,
     images,
-  } = props
+  } = data
 
   return (
     <tr>
@@ -41,7 +47,15 @@ function ContractTableRow(props: ContactType) {
         {content}
       </td>
       <td className={tdClassName}>
-        {images ? <button className='p-1 px-2'>{images.length}</button> : null}
+        <span
+          onClick={() => {
+            if (images) openImageViewer(images)
+          }}
+        >
+          {images ? (
+            <button className='p-1 px-2'>{images.length}</button>
+          ) : null}
+        </span>
       </td>
     </tr>
   )

@@ -20,10 +20,6 @@ function Login() {
   const [inputs, setInputs] = useState<InputsType>(initInputs)
   const router = useNavigate()
 
-  // const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setInputs({ ...inputs, [event.target.name]: event.target.value })
-  //   console.log(inputs)
-  // }
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, [event.target.name]: event.target.value })
   }
@@ -34,10 +30,9 @@ function Login() {
       inputs.id === authentication.id &&
       inputs.password === authentication.password
     ) {
-      router('/main')
+      router('/contact')
     } else {
       alert('아이디, 비밀번호가 다릅니다.')
-      // console.log(inputs.id + ' : ' + inputs.password)
     }
   }
 

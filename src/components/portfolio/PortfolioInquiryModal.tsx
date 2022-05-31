@@ -1,5 +1,6 @@
+import { data } from 'autoprefixer'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import ModalContent from '../../common/modal/ModalContent'
 import ModalTitle from '../../common/modal/ModalTitle'
 import ModalWrapper from '../../common/modal/ModalWrapper'
@@ -24,6 +25,20 @@ function PortfolioInquiryModal(props: Props) {
     }
   }
 
+  const onSubmit = useCallback(async () => {
+    try {
+      await axios({
+        method: 'POST',
+        url: 'http://adm.imama.kr/imama/api/',
+        data: { text },
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      onClose()
+    }
+  }, [text, onClose])
+
   useEffect(() => {
     loadText()
   })
@@ -31,7 +46,7 @@ function PortfolioInquiryModal(props: Props) {
   return (
     <ModalWrapper>
       <ModalContent className='w-1/3 h-min'>
-        <ModalTitle title='행사문의글 문구변경' onClose={onClose} />
+        <ModalTitle title='행사문의글 문구변경' onClose={onSubmit} />
         <div className='p-2 flex flex-col space-y-2'>
           <input
             type='text'

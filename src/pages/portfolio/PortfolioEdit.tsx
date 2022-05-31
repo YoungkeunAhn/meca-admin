@@ -2,10 +2,10 @@ import axios from 'axios'
 import { format } from 'date-fns'
 import React, { useCallback, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import PageTitle from '../../common/PageTitle'
-import InputTextBox from '../../components/InputTextBox'
-import DashboadLayout from '../../layout/DashboadLayout'
-import ImagePreviewBox from '../../components/portfolio/ImagePreviewBox'
+import PageTitle from 'src/common/PageTitle'
+import InputTextBox from 'src/components/InputTextBox'
+import ImagePreviewBox from 'src/components/portfolio/ImagePreviewBox'
+import DashboadLayout from 'src/layout/DashboadLayout'
 
 type InputsType = {
   title: string

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import ModalContent from '../../common/modal/ModalContent'
-import ModalTitle from '../../common/modal/ModalTitle'
-import ModalWrapper from '../../common/modal/ModalWrapper'
-import RequillEditor from '../../common/requill-editor/RequillEditor'
+import ModalContent from 'src/common/modal/ModalContent'
+import ModalTitle from 'src/common/modal/ModalTitle'
+import ModalWrapper from 'src/common/modal/ModalWrapper'
+import RequillEditor from 'src/common/requill-editor/RequillEditor'
 
 type DataType = {
   title: string

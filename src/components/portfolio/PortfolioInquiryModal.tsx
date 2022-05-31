@@ -1,9 +1,8 @@
-import { data } from 'autoprefixer'
 import axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
-import ModalContent from '../../common/modal/ModalContent'
-import ModalTitle from '../../common/modal/ModalTitle'
-import ModalWrapper from '../../common/modal/ModalWrapper'
+import ModalContent from 'src/common/modal/ModalContent'
+import ModalTitle from 'src/common/modal/ModalTitle'
+import ModalWrapper from 'src/common/modal/ModalWrapper'
 
 type Props = {
   onClose: () => void

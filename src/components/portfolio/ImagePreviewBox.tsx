@@ -1,5 +1,5 @@
 import React from 'react'
-import Minus from '../../icons/Minus'
+import Minus from 'src/icons/Minus'
 
 type Props = {
   imageList: ImageList[]

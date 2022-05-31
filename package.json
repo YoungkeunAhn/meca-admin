@@ -54,6 +54,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react-datepicker": "^4.4.1"
+    "@types/react-datepicker": "^4.4.1",
+    "ts-node": "^10.8.0",
+    "tsconfig-paths": "^4.0.0"
   }
 }

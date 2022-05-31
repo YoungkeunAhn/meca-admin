@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import ModalContent from '../../common/modal/ModalContent'
-import ModalTitle from '../../common/modal/ModalTitle'
-import ModalWrapper from '../../common/modal/ModalWrapper'
-import PageTitle from '../../common/PageTitle'
-import PortfolioCard from '../../components/portfolio/PortfolioCard'
-import PortfolioInquiryModal from '../../components/portfolio/PortfolioInquiryModal'
-import DashboadLayout from '../../layout/DashboadLayout'
+import PageTitle from 'src/common/PageTitle'
+import PortfolioCard from 'src/components/portfolio/PortfolioCard'
+import PortfolioInquiryModal from 'src/components/portfolio/PortfolioInquiryModal'
+import DashboadLayout from 'src/layout/DashboadLayout'
 
 const fakeData = [
   { id: 1, title: '골든디스크어워드', imageUrl: 'testImage.jpg' },

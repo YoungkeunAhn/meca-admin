@@ -1,8 +1,8 @@
 import { format } from 'date-fns'
 import React, { useState } from 'react'
-import PageTitle from '../../common/PageTitle'
-import DashboadLayout from '../../layout/DashboadLayout'
-import NoticeEditModal from '../../components/notice/NoticeEditModal'
+import PageTitle from 'src/common/PageTitle'
+import NoticeEditModal from 'src/components/notice/NoticeEditModal'
+import DashboadLayout from 'src/layout/DashboadLayout'
 
 const thClassName = 'text-sm font-semibold text-white py-2'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.css'
-import ModalWrapper from '../../common/modal/ModalWrapper'
+import ModalWrapper from 'src/common/modal/ModalWrapper'
 
 type Props = {
   imageList: string[]

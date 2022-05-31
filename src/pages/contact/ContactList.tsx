@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import PageTitle from '../../common/PageTitle'
-import DashboadLayout from '../../layout/DashboadLayout'
-import ContractTableRow from '../../components/contact/ContractTableRow'
-import ImageViewer from '../../components/contact/ImageViewer'
+import axios from 'axios'
+import React, { useCallback, useEffect, useState } from 'react'
+import PageTitle from 'src/common/PageTitle'
+import ContractTableRow from 'src/components/contact/ContractTableRow'
+import ImageViewer from 'src/components/contact/ImageViewer'
+import DashboadLayout from 'src/layout/DashboadLayout'
 
 const thClassName = 'text-sm font-semibold text-white py-2'
 
@@ -25,7 +26,7 @@ const fakeData: ContactType[] = [
     phoneNum: '010-1234-1234',
     email: 'test@gmail.com',
     content: '문의내용',
-    budget: 1000000000,
+    budget: 50000000,
   },
   {
     company: 'Apple',
@@ -48,9 +49,8 @@ const fakeData: ContactType[] = [
     companyCallNum: '080-234-0051',
     phoneNum: '010-1234-1234',
     email: 'test2@google.com',
-    content:
-      '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세',
-    budget: 100000000,
+    content: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세',
+    budget: 20000000,
     images: [
       'testImage.jpg',
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Z9mjVoxLYOKOGf-b67_YtS6NccXz3BCngl02ET60-4efPKMO5hiiYdUHAgQRpK-x8WM&usqp=CAU',
@@ -67,6 +67,7 @@ const fakeData: ContactType[] = [
 function ContactList() {
   const [open, setOpen] = useState<boolean>(false)
   const [viewerProps, setViewerProps] = useState<string[]>([])
+  const [contactList, setContactList] = useState<ContactType[]>([])
 
   const openImageViewer = (imageList: string[]) => {
     setViewerProps(imageList)
@@ -77,6 +78,23 @@ function ContactList() {
     setViewerProps([])
     setOpen(false)
   }
+
+  const loadContact = useCallback(async () => {
+    try {
+      const { data } = await axios({
+        method: 'GET',
+        url: 'http://adm.imama.kr/imama/api/',
+      })
+      setContactList(fakeData)
+      // setContactList(data)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadContact()
+  }, [loadContact])
 
   return (
     <DashboadLayout>
@@ -96,7 +114,7 @@ function ContactList() {
             </tr>
           </thead>
           <tbody>
-            {fakeData.map((data, idx) => (
+            {contactList.map((data, idx) => (
               <ContractTableRow
                 key={idx}
                 data={data}
